@@ -44,28 +44,21 @@ body {
 }
 
 .nav-links {
-  display: none;
-  flex-direction: column;
-  background-color: #000;
-  position: absolute;
-  top: 70px;
-  left: 0;
-  width: 100%;
-  padding: 1rem 0;
-  z-index: 999;
-}
-
-.nav-links li {
-  text-align: center;
-  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  list-style: none;
 }
 
 .nav-links li a {
-  font-size: 1.2rem;
+  color: rgb(247, 240, 240);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: background 0.3s;
 }
 
-.nav-links {
-  transition: all 0.3s ease;
+.nav-links li a:hover {
+  background-color: #ee2828;
+  border-radius: 5px;
 }
 
 .menu-toggle {
@@ -182,7 +175,7 @@ body {
 /* === Responsif === */
 @media (max-width: 576px) {
   .nav-links {
-    display: none;
+    display: none; /* Menyembunyikan navbar pada mobile secara default */
     flex-direction: column;
     background-color: #004d40;
     position: absolute;
@@ -192,17 +185,18 @@ body {
   }
 
   .nav-links.active {
-    display: flex;
+    display: flex; /* Menampilkan navbar saat tombol hamburger di-click */
   }
 
   .menu-toggle {
-    display: block;
+    display: block; /* Menampilkan tombol hamburger */
   }
 
   .hero h1 {
     font-size: 2rem;
   }
 }
+
 
 /* === Tab Content === */
 .tab-content {
