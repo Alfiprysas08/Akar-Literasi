@@ -44,21 +44,28 @@ body {
 }
 
 .nav-links {
-  display: flex;
-  gap: 1rem;
-  list-style: none;
+  display: none;
+  flex-direction: column;
+  background-color: #000;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  padding: 1rem 0;
+  z-index: 999;
+}
+
+.nav-links li {
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .nav-links li a {
-  color: rgb(247, 240, 240);
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  transition: background 0.3s;
+  font-size: 1.2rem;
 }
 
-.nav-links li a:hover {
-  background-color: #ee2828;
-  border-radius: 5px;
+.nav-links {
+  transition: all 0.3s ease;
 }
 
 .menu-toggle {
