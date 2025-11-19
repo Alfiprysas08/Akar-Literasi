@@ -4,367 +4,320 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Akar Literasi</title>
+  <meta name="theme-color" content="#0b1020">
   <style>
-   /* === Reset dasar === */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
+    /* ========================
+       Variabel Tema (Biru Gelap)
+       ======================== */
+    :root{
+      --bg: #0b1020;              /* biru sangat gelap */
+      --bg-2:#0f1830;             /* permukaan */
+      --surface: rgba(255,255,255,.03);
+      --border: rgba(255,255,255,.08);
+      --text: #e8eefc;            /* putih kebiruan */
+      --muted:#a9b7d1;            /* abu kebiruan */
+      --brand-1:#0de0c8;          /* hijau-biru (warna logo) */
+      --brand-2:#ee6d6d;          /* coral (warna logo) */
+      --link:#81c7ff;
+      --radius:16px;
+      --shadow: 0 12px 28px rgba(0,0,0,.45);
+      --nav-h: 64px;
+    }
 
-body {
-  background-color: #131212;
-  color: #000000;
-  line-height: 1.6;
-}
+    /* ========== Reset ========== */
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      background: radial-gradient(120% 65% at 50% 10%, #101a36 0%, var(--bg) 45%, #080d1a 100%);
+      color: var(--text);
+      line-height: 1.7;
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img{ max-width:100%; height:auto; display:block; border-radius: 14px; }
 
-/* === Navbar === */
-.navbar {
-  background-color: #000000;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
+    /* ========== Utilitas ========== */
+    .container{ width: min(1120px, 92%); margin-inline: auto; }
+    .prose{ color: var(--text); opacity:.96; }
+    .muted{ color: var(--muted); }
+    .title-brand{
+      background: linear-gradient(90deg, var(--brand-2), var(--brand-1));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.4rem .7rem; border:1px solid var(--border); border-radius:999px;
+      background:rgba(255,255,255,.03);
+      font-size:.9rem; color:var(--muted);
+    }
 
-.logo {
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
+    /* ========== Navbar ========== */
+    .navbar{
+      position: sticky; top:0; z-index:1000;
+      height: var(--nav-h);
+      display: flex; align-items:center;
+      background: rgba(6,10,24,.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .brand{ display:flex; align-items:center; gap:.75rem; font-weight:800; letter-spacing:.4px; }
+    .brand img{ height: 40px; border-radius: 10px; }
+    .brand span{ font-size:1.05rem; color:#ebf2ff; }
+    .nav-links{ list-style:none; display:flex; gap:.25rem; margin:0; padding:0; }
+    .nav-links a{
+      display:inline-block; padding:.55rem .9rem; border-radius:10px;
+      color:#eaf1ff; text-decoration:none; font-weight:700; letter-spacing:.2px;
+      position:relative;
+    }
+    .nav-links a:hover{ background: rgba(255,255,255,.06); }
+    .nav-links a.active::after{
+      content:""; position:absolute; left:14%; right:14%; bottom:7px; height:2px;
+      background: linear-gradient(90deg, var(--brand-2), var(--brand-1));
+      border-radius:2px;
+    }
+    .menu-toggle{ display:none; font-size:1.8rem; cursor:pointer; color:#dfe8ff; }
 
-.logo img {
-  height: 40px;
-}
+    /* ========== Hero (Home) ========== */
+    #beranda{
+      display:block;
+      background: radial-gradient(100% 60% at 50% 0%, #122045 0%, #0b1020 60%) ,
+                  url('images/background.webp') center/cover no-repeat;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero{
+      min-height: calc(100dvh - var(--nav-h));
+      display:grid; place-items:center; text-align:center;
+      padding: clamp(2rem, 4vw, 5rem) 1rem 2.25rem;
+    }
+    @supports not (height: 1dvh) {
+      .hero{ min-height: calc(100vh - var(--nav-h)); }
+    }
+    .hero .logo-hero{ max-height: 52vh; margin: 0 auto 1rem; object-fit: cover; }
+    .hero h1{
+      font-weight: 900;
+      font-size: clamp(1.9rem, 3.4vw + 1rem, 3.25rem);
+      line-height:1.2; margin:.35rem 0 .9rem;
+    }
+    .hero p{ max-width: 780px; margin-inline:auto; color:#c9d5ef; }
 
-.nav-links {
-  display: flex;
-  gap: 1rem;
-  list-style: none;
-}
+    /* ========== Section Shells (tanpa memaksa tinggi) ========== */
+    section.tab{ display:none; }
+    section.tab.is-active{ display:block; }
+    .section-wrap{
+      padding: clamp(2rem, 4vw, 3rem) 0;
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(17,26,46,.85), rgba(17,26,46,.7));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding: clamp(1.25rem, 2.5vw, 2rem);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+    .card h1, .card h2{ margin: .2rem 0 1rem; letter-spacing:.2px; }
+    .card h1{ font-size: clamp(1.6rem, .9vw + 1.2rem, 2.05rem); }
+    .card h2{ font-size: clamp(1.25rem, .8vw + 1rem, 1.6rem); color:#dfe8ff; }
+    .card p{ text-align: justify; }
 
-.nav-links li a {
-  color: rgb(247, 240, 240);
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  transition: background 0.3s;
-}
+    /* ========== CTA Link ========== */
+    .cta{
+      display:inline-flex; align-items:center; gap:.55rem; margin-top:1rem;
+      padding:.75rem 1rem; border-radius:12px; text-decoration:none; font-weight:800;
+      color:#081421; background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+      box-shadow: 0 8px 26px rgba(13, 224, 200, .2);
+      transition: transform .12s ease, filter .2s ease, box-shadow .2s ease;
+    }
+    .cta:hover{ transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 10px 28px rgba(238,109,109,.16); }
+    .cta:focus{ outline:3px solid rgba(129,199,255,.35); outline-offset:2px; }
 
-.nav-links li a:hover {
-  background-color: #ee2828;
-  border-radius: 5px;
-}
+    /* ========== Dokumentasi & Kontak ========== */
+    .kontak{
+      background: linear-gradient(180deg, #1a274b, #14213a);
+      color:#f6fbff;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .kontak-content{ display:flex; flex-direction:column; gap:1rem; }
+    .kontak-item{ display:flex; align-items:center; gap:.75rem; }
+    .kontak-item img{ height: 28px; width: 28px; object-fit: contain; }
+    .kontak a{ color: var(--link); text-decoration:none; }
 
-.menu-toggle {
-  display: none;
-  font-size: 2rem;
-  cursor: pointer;
-}
+    /* ========== Footer kecil ========== */
+    footer{
+      margin-top: 2rem; padding: 1.25rem 0; border-top: 1px solid var(--border);
+      color: var(--muted); font-size:.95rem; text-align:center;
+    }
 
-/* === Hero Section === */
-.hero {
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/background.webp') center/cover no-repeat;
-  color: white;
-  min-height: 160vh;
-  text-align: center;
-  padding: 8rem 2rem;
-}
+    /* ========== Mobile ========== */
+    @media (max-width: 620px){
+      .menu-toggle{ display:block; }
+      .nav-links{
+        display:none; position:absolute; right:1rem; top: calc(var(--nav-h) - 6px);
+        flex-direction:column; min-width: 66vw;
+        background: rgba(10,15,34,.94);
+        border:1px solid var(--border); border-radius:12px;
+        overflow:hidden; box-shadow: var(--shadow);
+      }
+      .nav-links.open{ display:flex; }
+      .nav-links a{ padding:.9rem 1rem; }
+      .hero{ padding-top: 2.25rem; }
+    }
 
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.hero .highlight {
-  background: linear-gradient(270deg, red, white, red);
-  background-size: 200% 200%; /* Kunci agar animasi terlihat */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientMove 5s ease infinite;
-}
-
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-
-.hero p {
-  max-width: 600px;
-  margin: 0 auto;
-  font-size: 1.2rem;
-}
-
-/* === Konten Umum === */
-.container {
-  padding: 3rem;
-  margin-top: 2rem;
-}
-.hero-content img {
-  max-width: 100%;
-  max-height: 50vh;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-.container-content h1,
-.container-content h2 {
-  color: #ee2828;
-  margin-bottom: 2rem;
-}
-.container-content img {
-  max-width: 100%;
-  max-height: 50vh;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-.download-btn {
-  display: inline-block;
-  background-color: #ee2828;
-  color: white;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  border-radius: 5px;
-  margin-top: 1rem;
-}
-
-.download-btn:hover {
-  background-color: #0de0c8;
-}
-
-/* === Dokumentasi & Kontak === */
-.kontak {
-  background-color: wheat;
-  color: black;
-  padding: 2rem;
-  text-align: center;
-}
-
-.kontak-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
-  align-items: justify;
-}
-
-.kontak-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.kontak-item img {
-  height: 30px;
-}
-
-/* === Responsif === */
-@media (max-width: 576px) {
-  .nav-links {
-    display: none; /* Menyembunyikan navbar pada mobile secara default */
-    flex-direction: column;
-    background-color: #004d40;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    width: 200px;
-  }
-
-  .nav-links.active {
-    display: flex; /* Menampilkan navbar saat tombol hamburger di-click */
-  }
-
-  .menu-toggle {
-    display: block; /* Menampilkan tombol hamburger */
-  }
-
-  .hero h1 {
-    font-size: 2rem;
-  }
-}
-
-
-/* === Tab Content === */
-.tab-content {
-  opacity: 0;
-  min-height: 160vh;
-  visibility: hidden;
-  transform: translateY(20px);
-  transition: all 0.5s ease;
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0;
-}
-
-.tab-content.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  position: relative;
-}
-
-
-/*background tab*/
-#tentang {
-  background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/sunset.jpg') no-repeat center center;
-  background-size: cover;
-  color: white;
-}
-
-#program {
-  background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/background.webp') no-repeat center center;
-  background-size: cover;
-  color: white;
-}
-
-#dokumentasi {
-  background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/background.webp') no-repeat center center;
-  background-size: cover;
-  color: white;
-}
-
-#kontak {
-  background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/background.webp') no-repeat center center;
-  background-size: cover;
-  color: white;
-}
- 
+    /* ========== Aksesibilitas/Preferensi ========== */
+    @media (prefers-reduced-motion: reduce){
+      *{ animation: none !important; transition: none !important; }
+    }
   </style>
-
 </head>
 <body>
-  <div class="navbar">
-    <div class="logo">
-      <img src="images/logo.jpg" alt="Logo" />
-      Akar Literasi
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Navigasi utama">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="images/logo.jpg" alt="Logo Akar Literasi">
+        <span class="title-brand">Akar Literasi</span>
+      </div>
+
+      <div class="menu-toggle" id="menu-toggle" aria-label="Buka menu" aria-expanded="false">&#9776;</div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#" class="active" onclick="showTab('beranda', this)" aria-current="page">Beranda</a></li>
+        <li><a href="#" onclick="showTab('tentang', this)">Tentang</a></li>
+        <li><a href="#" onclick="showTab('program', this)">Program</a></li>
+        <li><a href="#" onclick="showTab('dokumentasi', this)">Dokumentasi</a></li>
+        <li><a href="#" onclick="showTab('kontak', this)">Kontak</a></li>
+      </ul>
     </div>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#" onclick="tampilkanTab('beranda')">Beranda</a></li>
-      <li><a href="#" onclick="tampilkanTab('tentang')">Tentang</a></li>
-      <li><a href="#" onclick="tampilkanTab('program')">Program</a></li>
-      <li><a href="#" onclick="tampilkanTab('dokumentasi')">Dokumentasi</a></li>
-      <li><a href="#" onclick="tampilkanTab('kontak')">Kontak</a></li>
-    </ul>
-  </div>
+  </nav>
 
   <main>
-    <section id="beranda" class="tab-content active">
+    <!-- ==== BERANDA ==== -->
+    <section id="beranda" class="tab is-active">
       <div class="hero">
-        <div class="hero-content">
-          <img src="images/beranda.jpg">
-          <h1>AKAR LITERASI<br/><span class="highlight">TUMBUH BERSAMA MENUJU PERUBAHAN</span></h1>
-          <p>Karena setiap jiwa butuh ruang untuk bertumbuh, dan setiap perubahan besar selalu dimulai dari langkah kecil yang dilakukan bersama</p>
-        
+        <div class="container">
+          <img class="logo-hero" src="images/beranda.jpg" alt="Ilustrasi beranda Akar Literasi" loading="lazy">
+          <h1 class="title-brand">AKAR LITERASI</h1>
+          <h1 class="title-brand">TUMBUH BERSAMA MENUJU PERUBAHAN</h1>
+          <p class="muted">Karena setiap jiwa butuh ruang untuk bertumbuh, dan setiap perubahan besar selalu dimulai dari langkah kecil yang dilakukan bersama.</p>
         </div>
       </div>
     </section>
 
-    <section id="tentang" class="tab-content">
-      <div class="container">
-        <div class="container-content">
-          <img src="images/background.webp">
-          <h1>TENTANG KAMI</h1>
-          <h2>LATAR BELAKANG</h2>
-          <p>Akar Literasi Komunitas lahir dari keprihatinan akan minimnya ruang yang mampu menumbuhkan kesadaran spiritual, intelektual, dan emosional generasi muda. Di tengah derasnya arus informasi dan dinamika sosial, banyak anak muda kehilangan arah tercabut dari akar nilai, keimanan, dan makna hidup.</p>
-          <h2>TUJUAN</h2>
-          <p>Akar Literasi Komunitas dibentuk dengan tujuan untuk menguatkan kembali fondasi keimanan dan nilai hidup generasi muda sebagai akar utama pertumbuhan diri yang kokoh. Komunitas ini hadir untuk membangkitkan semangat literasi dalam makna yang luas tidak hanya sebatas kemampuan membaca dan menulis, tetapi juga mencakup kemampuan berpikir kritis, reflektif, dan spiritual.
-            Kami ingin menciptakan ruang yang aman, suportif, dan penuh makna, di mana setiap individu merasa diterima dan didorong untuk berkembang secara utuh baik secara jiwa, akal, maupun tindakan. Melalui komunitas ini, kami berupaya membangun jejaring anak muda yang saling menjaga dan menyuburkan potensi satu sama lain, serta menyalakan kembali cahaya harapan bagi jiwa-jiwa yang pernah merasa redup, agar tumbuh menjadi pribadi yang bermanfaat dan berdampak.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="program" class="tab-content">
-      <div class="container">
-        <div class="container-content">
-          <img src="images/diskusi.png">
-          <h1>PROGRAM</h1>
-          <p>Program-program Akar Literasi dirancang sebagai media pertumbuhan yang menyeluruh mencakup aspek spiritual, intelektual, emosional, sosial, dan jasmani. Setiap kegiatan dibentuk untuk menumbuhkan kebiasaan baik, melatih kepekaan diri, dan memperkuat fondasi kehidupan yang berakar pada nilai-nilai keimanan dan pencarian ilmu.
-            Melalui ritme aktivitas yang teratur dan berjenjang, komunitas ini mengajak para anggotanya untuk tidak hanya menjadi pribadi yang disiplin, reflektif, dan berpikir kritis, tetapi juga mampu bekerja sama, saling mendukung, dan berbagi makna hidup dalam ruang yang aman dan penuh harapan.
-            Akar Literasi percaya bahwa pertumbuhan yang kuat selalu dimulai dari akar yang dijaga. Maka setiap program adalah upaya untuk menyuburkan akar-akar itu agar kelak tumbuh menjadi pohon kehidupan yang memberi manfaat bagi sekelilingnya.</p>
-          <a href="Dokumen/program.pdf" download class="download-btn">
-            <i class="fa fa-download"></i> PROGRAM
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="dokumentasi" class="tab-content">
-      <div class="container">
-        <div class="container-content">
-          <img src="images/kerjasama.png">
-          <h2>JEJAK PERJALANAN</h2>
-          <p>Di setiap langkah yang terbingkai, kami belajar menanam harap dengan sabar membiarkan akar menyelusup dalam gelap, hingga menemukan cahaya dari dalam tanah iman.
-            Dokumentasi ini adalah catatan perjalanan jiwa-jiwa yang pernah redup, lalu kembali menyala oleh kasih, ilmu, dan ikhtiar bersama.
-            Bukan sekadar foto, tapi saksi akan janji yang kami tanam: bahwa setiap jiwa layak bertumbuh, sejauh mana pun ia pernah terjatuh.</p>
-            <br/>  klik link ini
-          <a href="https://alfiprysas08.github.io/Gallery-akar-literasi/" style="color: rgb(243, 5, 5); font-size: 20px; text-decoration: none;">
-  👉 DOKUMENTASI
-</a>
-
-             
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="kontak" class="tab-content">
-      <div class="kontak">
-        <div class="kontak-content">
-          <div class="kontak-item">
-            <img src="images/gmail.png" alt="Email Icon">
-            <p>Akarliterasi6@gmail.com</p>
+    <!-- ==== TENTANG ==== -->
+    <section id="tentang" class="tab">
+      <div class="section-wrap">
+        <div class="container">
+          <div class="card">
+            <div class="chip">Tentang Kami</div>
+            <h1 class="title-brand">TENTANG KAMI</h1>
+            <img src="images/background.webp" alt="Latar belakang Akar Literasi" loading="lazy">
+            <h2>LATAR BELAKANG</h2>
+            <p class="prose">Akar Literasi Komunitas lahir dari keprihatinan akan minimnya ruang yang mampu menumbuhkan kesadaran spiritual, intelektual, dan emosional generasi muda. Di tengah derasnya arus informasi dan dinamika sosial, banyak anak muda kehilangan arah tercabut dari akar nilai, keimanan, dan makna hidup.</p>
+            <h2>TUJUAN</h2>
+            <p class="prose">Akar Literasi Komunitas dibentuk dengan tujuan untuk menguatkan kembali fondasi keimanan dan nilai hidup generasi muda sebagai akar utama pertumbuhan diri yang kokoh. Komunitas ini hadir untuk membangkitkan semangat literasi dalam makna yang luas tidak hanya sebatas kemampuan membaca dan menulis, tetapi juga mencakup kemampuan berpikir kritis, reflektif, dan spiritual. Kami ingin menciptakan ruang yang aman, suportif, dan penuh makna, di mana setiap individu merasa diterima dan didorong untuk berkembang secara utuh baik secara jiwa, akal, maupun tindakan.</p>
           </div>
-          <div class="kontak-item">
-            <img src="images/instagram.png" alt="Instagram Icon">
-            <a href="https://www.instagram.com/akar.literasi/?utm_source=ig_web_button_share_sheet">@akar.literasi</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== PROGRAM ==== -->
+    <section id="program" class="tab">
+      <div class="section-wrap">
+        <div class="container">
+          <div class="card">
+            <div class="chip">Program</div>
+            <h1 class="title-brand">PROGRAM</h1>
+            <img src="images/diskusi.png" alt="Ilustrasi program Akar Literasi" loading="lazy">
+            <p class="prose">Program-program Akar Literasi dirancang sebagai media pertumbuhan yang menyeluruh—mencakup aspek spiritual, intelektual, emosional, sosial, dan jasmani. Setiap kegiatan dibentuk untuk menumbuhkan kebiasaan baik, melatih kepekaan diri, dan memperkuat fondasi kehidupan yang berakar pada nilai-nilai keimanan dan pencarian ilmu. Melalui ritme aktivitas yang teratur dan berjenjang, komunitas ini mengajak para anggotanya untuk tidak hanya menjadi pribadi yang disiplin, reflektif, dan berpikir kritis, tetapi juga mampu bekerja sama, saling mendukung, dan berbagi makna hidup dalam ruang yang aman dan penuh harapan.</p>
+            <!-- Sesuai permintaan: bukan download, tapi klik tautan -->
+            <a href="https://alfiprysas08.github.io/Akar-Literasi-program/" class="cta">👉 BUKA HALAMAN PROGRAM</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== DOKUMENTASI ==== -->
+    <section id="dokumentasi" class="tab">
+      <div class="section-wrap">
+        <div class="container">
+          <div class="card">
+            <div class="chip">Dokumentasi</div>
+            <h2 class="title-brand">JEJAK PERJALANAN</h2>
+            <img src="images/kerjasama.png" alt="Ilustrasi dokumentasi komunitas" loading="lazy">
+            <p class="prose">Di setiap langkah yang terbingkai, kami belajar menanam harap dengan sabar membiarkan akar menyelusup dalam gelap hingga menemukan cahaya dari dalam tanah iman. Dokumentasi ini adalah catatan perjalanan jiwa-jiwa yang pernah redup, lalu kembali menyala oleh kasih, ilmu, dan ikhtiar bersama. Bukan sekadar foto, tapi saksi akan janji yang kami tanam: bahwa setiap jiwa layak bertumbuh, sejauh mana pun ia pernah terjatuh.</p>
+            <a href="https://alfiprysas08.github.io/Gallery-akar-literasi/" class="cta" target="_blank" rel="noopener">👉 LIHAT GALERI</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== KONTAK ==== -->
+    <section id="kontak" class="tab">
+      <div class="section-wrap">
+        <div class="container">
+          <div class="kontak">
+            <div class="kontak-content">
+              <div class="kontak-item">
+                <img src="images/gmail.png" alt="Ikon Email">
+                <a href="mailto:Akarliterasi6@gmail.com">Akarliterasi6@gmail.com</a>
+              </div>
+              <div class="kontak-item">
+                <img src="images/instagram.png" alt="Ikon Instagram">
+                <a href="https://www.instagram.com/akar.literasi/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener">@akar.literasi</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
   </main>
 
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Akar Literasi.
+    </div>
+  </footer>
+
   <script>
- 
+    // Tahun dinamis
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav
     const toggleBtn = document.getElementById('menu-toggle');
     const navLinks = document.getElementById('nav-links');
-
-    toggleBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
+    toggleBtn?.addEventListener('click', () => {
+      const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', String(!expanded));
+      navLinks.classList.toggle('open');
     });
 
-    function tampilkanTab(tabId) {
-  const semuaTab = document.querySelectorAll('.tab-content');
-  semuaTab.forEach(tab => {
-    tab.classList.remove('active');
-  });
+    // Tab handler tanpa posisi absolut dan tanpa min-height paksa
+    function showTab(id, el){
+      // sections
+      document.querySelectorAll('section.tab').forEach(s => s.classList.remove('is-active'));
+      const target = document.getElementById(id);
+      target?.classList.add('is-active');
 
-  const tabAktif = document.getElementById(tabId);
-  if (tabAktif) {
-    setTimeout(() => {
-      tabAktif.classList.add('active');
-    }, 300); // delay kecil agar transisi berjalan mulus
-  }
-}
+      // nav active
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        a.classList.remove('active'); a.removeAttribute('aria-current');
+      });
+      if (el) { el.classList.add('active'); el.setAttribute('aria-current','page'); }
 
-    
+      // close mobile
+      navLinks.classList.remove('open');
+      toggleBtn?.setAttribute('aria-expanded','false');
+
+      // Scroll ke atas tiap ganti tab agar hero selalu terlihat penuh
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   </script>
 </body>
 </html>
